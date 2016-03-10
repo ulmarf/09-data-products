@@ -1,0 +1,100 @@
+Analysis of the Motor Trend Car Road Tests
+========================================================
+
+author: Florian Ulmar
+date: 10.03.2016
+
+========================================================
+
+The dataset **mtcars** was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles.
+<small>
+* [, 1]	 mpg	 Miles/(US) gallon
+* [, 2]	 cyl	 Number of cylinders
+* [, 3]	 disp	 Displacement (cu.in.)
+* [, 4]	 hp	 Gross horsepower
+* [, 5]	 drat	 Rear axle ratio
+* [, 6]	 wt	 Weight (lb/1000)
+* [, 7]	 qsec	 1/4 mile time
+* [, 8]	 vs	 V/S
+* [, 9]	 am	 Transmission (0 = automatic, 1 = manual)
+* [,10]	 gear	 Number of forward gears
+* [,11]	 carb	 Number of carburetors
+</small>
+
+Predictors for Miles per Gallon
+========================================================
+
+p-values for the univariate univariate regression:
+
+```{r echo = F, warning = F, message = F}
+source("topvar.R")
+pval <- toppval(x = mtcars[, 2:ncol(mtcars)],
+                y = mtcars[, 1])
+df <- data.frame(
+    name = names(mtcars)[order(pval) + 1],
+    pval = pval[order(pval)])
+print(df)
+```
+
+***
+```{r echo = F, warning = F, message = F}
+        fit <- lm(mtcars$mpg ~ mtcars$wt)
+        plot(x = mtcars$wt, y = mtcars$mpg,
+             main = "mpg vs. weight",
+             xlab = "Weight (lb/1000)",
+             ylab = "Miles/(US) gallon"
+        )
+        lines(mtcars$wt, predict(fit), lwd = 2)
+        points(mtcars$wt, y = mtcars$mpg,
+                bg = "lightblue",
+                col = "black",
+                cex = 2,
+                pch = 21)
+```
+
+A multivariate prediction model
+========================================================
+
+The best model is given by a multivariate regression of **weight** and  **Number of cylinders**.
+
+Further variables have only a slight influence to the prediction result.
+
+***
+
+```{r echo = F, warning = F, message = F}
+source("topvar.R")
+
+fitm <- topfit(x = mtcars[, 2:ncol(mtcars)],
+       y = mtcars[, 1],
+       m = 2)
+index <- 1:nrow(mtcars)
+yhat <- predict(fitm)
+e <- resid(fitm)
+plot(x = index, y = e,
+     main = paste("Residual vs. index"),
+     bg = "lightblue",
+     col = "black",
+     cex = 2,
+     pch = 21,
+     xlab = "Index",
+     ylab = "Residuals"
+)
+abline(h = 0, lwd = 2)
+for(i in 1:nrow(mtcars)) {
+    lines(c(index[i], index[i]),
+          c(0, e[i]),
+          col = "red",
+          lwd = 2)
+}
+text(5, 4, paste("MLE =", signif(sqrt(sum(e ^ 2) / (length(yhat) - 2)), 3)))
+```
+
+
+Thank you
+========================================================
+
+I hope that this presentation has given you some ideas of the reasons for car fuel consumption.
+
+Please send feedback to florian.ulmar@googlemail.com
+
+Thank you for your attention!
