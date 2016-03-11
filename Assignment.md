@@ -2,6 +2,7 @@ Analysis of the Motor Trend Car Road Tests
 ========================================================
 
 author: Florian Ulmar
+
 date: 10.03.2016
 
 ========================================================
@@ -56,7 +57,7 @@ Further variables have only a slight influence to the prediction result.
 ![plot of chunk unnamed-chunk-3](Assignment-figure/unnamed-chunk-3-1.png) 
 
 
-Thank you
+Thank you very much
 ========================================================
 
 I hope that this presentation has given you some ideas of the reasons for car fuel consumption.

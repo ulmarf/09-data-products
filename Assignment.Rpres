@@ -2,6 +2,7 @@ Analysis of the Motor Trend Car Road Tests
 ========================================================
 
 author: Florian Ulmar
+
 date: 10.03.2016
 
 ========================================================
@@ -90,7 +91,7 @@ text(5, 4, paste("MLE =", signif(sqrt(sum(e ^ 2) / (length(yhat) - 2)), 3)))
 ```
 
 
-Thank you
+Thank you very much
 ========================================================
 
 I hope that this presentation has given you some ideas of the reasons for car fuel consumption.
